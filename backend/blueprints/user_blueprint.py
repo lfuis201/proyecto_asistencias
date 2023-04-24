@@ -27,9 +27,9 @@ def create_user():
 def update_user():
     content = model.update_user(request.json['id_usuario'], request.json['nickname']
                                 , request.json['password'], request.json['nombre']
-                                , request.json['nombre'], request.json['apellido']
-                                , request.json['correo_electronico'], request.json['telefono']
-                                , request.json['direccion'])    
+                                , request.json['apellido'], request.json['edad']
+                                , request.json['genero'], request.json['correo_electronico']
+                                , request.json['telefono'], request.json['direccion'])    
     return jsonify(content)
 
 @user_blueprint.route('/user', methods=['DELETE'])

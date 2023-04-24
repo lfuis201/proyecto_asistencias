@@ -67,7 +67,7 @@ class UserModel:
                     ,nombre= %(nombre)s,apellido= %(apellido)s
                     ,edad= %(edad)s,genero= %(genero)s
                     ,correo_electronico= %(correo_electronico)s
-                    ,telefono= %(telefono)s ,direccion= %(direccion)s where user_id = %(user_id)s"""    
+                    ,telefono= %(telefono)s ,direccion= %(direccion)s where id_usuario = %(id_usuario)s"""    
         cursor = self.mysql_pool.execute(query, data, commit=True)   
 
         result = {'result':1} 

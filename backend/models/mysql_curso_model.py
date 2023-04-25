@@ -1,8 +1,9 @@
-from backend.models.mysql_pool_connection import MySQLPool
+#from backend.models.mysql_pool_connection import MySQLPool
+from backend.models.postgres_pool_connection import PostgresPool
 
 class CursoModel:
     def __init__(self):        
-        self.mysql_pool = MySQLPool()
+        self.mysql_pool = PostgresPool()
 
     def get_curso(self, id_curso):    
         params = {'id_curso' : id_curso}      

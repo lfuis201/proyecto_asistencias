@@ -1,10 +1,10 @@
-
-from backend.models.mysql_pool_connection import MySQLPool
+#from backend.models.mysql_pool_connection import MySQLPool
+from backend.models.postgres_pool_connection import PostgresPool
 
 
 class UserModel:
     def __init__(self):        
-        self.mysql_pool = MySQLPool()
+        self.mysql_pool = PostgresPool()
 
     def get_user(self, id_usuario):    
         params = {'id_usuario' : id_usuario}      

@@ -1,10 +1,10 @@
 
-from backend.models.mysql_pool_connection import MySQLPool
-
+#from backend.models.mysql_pool_connection import MySQLPool
+from backend.models.postgres_pool_connection import PostgresPool
 
 class SeccionModel:
     def __init__(self):        
-        self.mysql_pool = MySQLPool()
+        self.mysql_pool = PostgresPool()
 
     def get_seccion(self, id_seccion):    
         params = {'id_seccion' : id_seccion}      

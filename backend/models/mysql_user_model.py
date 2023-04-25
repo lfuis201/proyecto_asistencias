@@ -46,7 +46,7 @@ class UserModel:
             , %(correo_electronico)s, %(telefono)s, %(direccion)s)"""    
         cursor = self.mysql_pool.execute(query, data, commit=True)   
 
-        data['user_id'] = cursor.lastrowid
+        data['id_usuario'] = cursor.lastrowid
         return data
 
     def update_user (self,id_usuario, nickname, password, nombre, apellido, edad, genero,correo_electronico, telefono, direccion):    

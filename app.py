@@ -8,12 +8,14 @@ from backend.blueprints.user_blueprint import user_blueprint
 from backend.blueprints.curso_blueprint import curso_blueprint
 from backend.blueprints.seccion_blueprint import seccion_blueprint
 from backend.blueprints.alumno_blueprint import alumno_blueprint
+from backend.blueprints.profesor_blueprint import profesor_blueprint
 app = Flask(__name__)
 
 app.register_blueprint(user_blueprint)
 app.register_blueprint(curso_blueprint)
 app.register_blueprint(seccion_blueprint)
 app.register_blueprint(alumno_blueprint)
+app.register_blueprint(profesor_blueprint)
 cors = CORS(app)
 
 if __name__ == "__main__":

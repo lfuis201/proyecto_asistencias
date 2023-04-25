@@ -44,7 +44,7 @@ class ProfesorModel:
          values(%(departamento)s,%(id_usuario)s);"""
         cursor = self.postgres_pool.execute(query,entrada,commit=True)
         salida = {
-            "id_profesor":cursor.lastrowid,
+            "id_usuario":id_usuario,
             "message":"Usuario OK"
         }
 #        global llave_usuario

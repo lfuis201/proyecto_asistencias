@@ -44,7 +44,7 @@ class AlumnoModel:
          values(%(carrera)s,%(id_usuario)s);"""
         cursor = self.mysql_pool.execute(query,entrada,commit=True)
         salida = {
-            "id_alumno":cursor.lastrowid,
+            "id_usuario":id_usuario,
             "message":"Usuario OK"
         }
 #        global llave_usuario

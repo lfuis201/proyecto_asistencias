@@ -36,7 +36,6 @@ class CursoModel:
             values (%(nombre_curso)s, %(descripcion)s)"""    
         cursor = self.mysql_pool.execute(query, data, commit=True)   
 
-        data['id_curso'] = cursor.lastrowid
         return data
 
     def update_curso (self,id_curso,nombre_curso, descripcion):    

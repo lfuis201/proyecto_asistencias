@@ -11,20 +11,20 @@ profesor_blueprint = Blueprint('profesor_blueprint',__name__)
 
 @profesor_blueprint.route('/get_profesores',methods=['GET'])
 @cross_origin()
-def get_alumns():
+def get_profesors():
     content = model_profesor.get_profesores()
     return jsonify(content) 
 
 @profesor_blueprint.route('/get_profesor',methods=['GET'])
 @cross_origin()
-def get_alumn():
+def get_profesor():
     return jsonify(model_profesor.get_profesor(int(request.json['id_profesor'])))
 
 
 @profesor_blueprint.route('/create_profesor',methods=['POST'])
 @cross_origin()
-def insert_alumn():
-    content=model_profesor.insert_profesors(
+def insert_profesor():
+    content=model_profesor.insert_profesor(
         request.json['departamento'],
         request.json['id_usuario']
     )
@@ -32,7 +32,7 @@ def insert_alumn():
 
 @profesor_blueprint.route('/update_profesor',methods=['PATCH'])
 @cross_origin()
-def update_alumn():
+def update_profesor():
     content=model_profesor.update_profesors(
         request.json['id_profesor'],
         request.json['departamento']
@@ -42,5 +42,5 @@ def update_alumn():
 
 @profesor_blueprint.route('/delete_profesor', methods=['DELETE'])
 @cross_origin()
-def delete_alumn():
+def delete_profesor():
     return jsonify(model_profesor.delete_profesors(int(request.json['id_profesor'])))

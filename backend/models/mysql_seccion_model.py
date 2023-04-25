@@ -38,7 +38,6 @@ class SeccionModel:
             values (%(nombre_seccion)s, %(aula)s, %(id_curso)s)"""    
         cursor = self.mysql_pool.execute(query, data, commit=True)   
 
-        data['id_curso'] = cursor.lastrowid
         return data
 
     def update_seccion (self,id_seccion, nombre_seccion, aula, id_curso):    

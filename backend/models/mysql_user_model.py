@@ -27,7 +27,7 @@ class UserModel:
             content = {}
         return data
 
-    def create_user(self, nickname, password, nombre, apellido, edad, genero,correo_electronico, telefono, direccion):    
+    def create_user(self, nickname, password, nombre, apellido, edad, genero,correo_electronico, telefono, direccion,foto):    
         data = {
             'nickname' : nickname,
             'password' : password,
@@ -37,13 +37,14 @@ class UserModel:
             'genero' : genero,
             'correo_electronico' : correo_electronico,
             'telefono' : telefono,
-            'direccion' : direccion
+            'direccion' : direccion,
+
         }
         
         query = """insert into usuario (nickname, password, nombre, apellido, edad, 
-            genero, correo_electronico, telefono, direccion) 
+            genero, correo_electronico, telefono, direccion,foto) 
             values (%(nickname)s, %(password)s, %(nombre)s, %(apellido)s, %(edad)s, %(genero)s
-            , %(correo_electronico)s, %(telefono)s, %(direccion)s)"""    
+            , %(correo_electronico)s, %(telefono)s, %(direccion)s"""    
         cursor = self.mysql_pool.execute(query, data, commit=True)   
 
         return data

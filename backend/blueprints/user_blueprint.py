@@ -2,6 +2,8 @@ from flask import Flask
 from flask import Blueprint
 from flask import request
 from flask import jsonify
+import requests
+import os
 import json
 from flask_cors import CORS, cross_origin 
 
@@ -15,11 +17,21 @@ user_blueprint = Blueprint('user_blueprint', __name__)
 @user_blueprint.route('/user', methods=['PUT'])
 @cross_origin()
 def create_user():
+    f = request.files['file']
+    filename = f.filename
+    f.save("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/" + filename )
+    
+    f_save = ("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/" + filename )
+
+    
     content = model.create_user(request.json['nickname']
                                 , request.json['password'], request.json['nombre']
                                 , request.json['apellido'], request.json['edad']
                                 , request.json['genero'], request.json['correo_electronico']
-                                , request.json['telefono'],request.json['direccion'])       
+                                , request.json['telefono'],request.json['direccion'])
+    
+    data = {"foto":f_save}
+    response = requests.put('https://localhost:5050/user', json=data)        
     return jsonify(content)
 
 @user_blueprint.route('/user', methods=['PATCH'])

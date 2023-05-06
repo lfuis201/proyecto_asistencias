@@ -1,4 +1,10 @@
-import os
+#consumir api de comparar caras de docker
+import requests
 
-f_paht = os.path.abspath("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/photosfile.png")
-print(f_paht)
+url = 'http://0.0.0.0:81/comparar-caras'
+img1 = open('photos/file.png', 'rb')
+img2 = open('photos/file2.png', 'rb')
+files = {'imagen1': img1, 'imagen2': img2}
+
+response = requests.post(url, files=files)
+print(response.text)

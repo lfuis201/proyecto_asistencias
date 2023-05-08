@@ -36,16 +36,16 @@ def insert_asistencia():
     img1 = open(f_save, 'rb')
     img2 = open(fotouserpath[0].get("foto"), 'rb')
     
-    url = 'http://0.0.0.0:81/comparar_caras'
+    url = 'http://0.0.0.0:81/comparar-caras'
     
-    files = {'file': img1, 'file2':img2}
+    files = {'imagen1': img1, 'imagen2':img2}
     
     response = requests.post(url, files=files)
     json_response=json.loads(response.text)
     vector = json_response["distancia"]
     str(vector)
     estado=False
-    if vector<0.9:
+    if vector<0.6:
         estado=True
     
     content=model_asistencia.insert_asistencias(
@@ -61,13 +61,19 @@ def insert_asistencia():
 @asistencia_blueprint.route('/update_asistencia',methods=['PATCH'])
 @cross_origin()
 def update_asistencia():
+    f = request.files['foto']
+    filename = f.filename
+    dir ="/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos_asistencia/" + "nuevo"+filename
+    f.save(dir)
+    
+    f_save = dir
     content=model_asistencia.update_asistencia(
         request.form['id_asistencia'],
         request.form['estado'],
         request.form['fecha'],
         request.form['id_horario'],
-        request.form['vector_comparacion'],
-        request.file['foto']
+        
+        f_save
     )
     return jsonify(content)
 

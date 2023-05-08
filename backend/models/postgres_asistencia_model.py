@@ -62,17 +62,15 @@ class AsistenciaModel:
         return salida
 
 
-    def update_asistencia(self, id_asistencia, estado, fecha,id_horario,vector_comparacion,foto):    
+    def update_asistencia(self, id_asistencia, estado, fecha,id_horario,foto):    
         data = {
             'id_asistencia' : id_asistencia,
             'estado' : estado,
             'fecha': fecha,
             'id_horario':id_horario,
-            'vector_comparacion':vector_comparacion,
             'foto':foto
         }  
-        query = """update asistencia set estado = %(estado)s, fecha = %(fecha)s, id_horario =%(id_horario)s,
-                    vector_comparacion=%(vector_comparacion)s,foto=%(foto)s
+        query = """update asistencia set estado = %(estado)s, fecha = %(fecha)s, id_horario =%(id_horario)s,foto=%(foto)s
                      where id_asistencia = %(id_asistencia)s"""    
         cursor = self.mysql_pool.execute(query, data, commit=True)   
 
@@ -82,7 +80,8 @@ class AsistenciaModel:
 
     def delete_asistencia(self, id_asistencia):    
         params = {'id_asistencia' : id_asistencia}      
-        query = """delete from asistencia where id_asistencia = %(id_asistencia)s"""    
+        query = """delete from justificacion j where j.id_asistencia =%(id_asistencia)s;
+                  delete from asistencia where id_asistencia = %(id_asistencia)s"""    
         self.mysql_pool.execute(query, params, commit=True)   
 
         data = {'result': 1}

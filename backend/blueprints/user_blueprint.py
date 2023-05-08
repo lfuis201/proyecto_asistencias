@@ -2,6 +2,7 @@ from flask import Flask
 from flask import Blueprint
 from flask import request
 from flask import jsonify
+from os import remove
 import requests
 import os
 import json
@@ -17,31 +18,66 @@ user_blueprint = Blueprint('user_blueprint', __name__)
 @user_blueprint.route('/user', methods=['PUT'])
 @cross_origin()
 def create_user():
-    f = request.files['file']
+    
+    f = request.files['foto']
     filename = f.filename
-    f.save("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/" + filename )
+    f.save("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/" +request.form['dni']+ filename)
     
-    f_save = ("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/" + filename )
-
+    f_save = ("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/" +request.form['dni']+ filename)
     
-    content = model.create_user(request.json['nickname']
-                                , request.json['password'], request.json['nombre']
-                                , request.json['apellido'], request.json['edad']
-                                , request.json['genero'], request.json['correo_electronico']
-                                , request.json['telefono'],request.json['direccion'])
+    url = 'http://0.0.0.0:81/recibir_foto'
     
-    data = {"foto":f_save}
-    response = requests.put('https://localhost:5050/user', json=data)        
+    img1 = open(f_save, 'rb')
+    files = {'file': img1}
+    
+    response = requests.post(url, files=files)
+    json_response=json.loads(response.text)
+    vector = json_response["result"]
+    
+    content = model.create_user(request.form['nickname']
+                                , request.form['password'], request.form['nombre']
+                                , request.form['apellido'], request.form['edad']
+                                , request.form['genero'], request.form['correo_electronico']
+                                , request.form['telefono'],request.form['direccion'],request.form['dni'],vector)
+    
+    dni = request.form['dni']
+    
+    model.subir_foto(f_save,dni)
     return jsonify(content)
 
 @user_blueprint.route('/user', methods=['PATCH'])
 @cross_origin()
 def update_user():
-    content = model.update_user(request.json['id_usuario'], request.json['nickname']
-                                , request.json['password'], request.json['nombre']
-                                , request.json['apellido'], request.json['edad']
-                                , request.json['genero'], request.json['correo_electronico']
-                                , request.json['telefono'], request.json['direccion'])    
+    id_user = request.form['id_usuario']
+    
+    data = model.get_user(id_user)
+    
+    foto_vieja = data[0].get("foto")
+    dni = data[0].get("dni")
+    #remove(foto_vieja)
+    
+    f = request.files['foto']
+    filename = f.filename
+    f.save("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/" +dni+ filename)
+    
+    f_save = ("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/" +dni+ filename)
+    
+    url = 'http://0.0.0.0:81/recibir_foto'
+    
+    img1 = open(f_save, 'rb')
+    files = {'file': img1}
+    response = requests.post(url, files=files)
+    json_response=json.loads(response.text)
+    vector = json_response["result"]
+    
+    content = model.update_user(request.form['id_usuario'], request.form['nickname']
+                                , request.form['password'], request.form['nombre']
+                                , request.form['apellido'], request.form['edad']
+                                , request.form['genero'], request.form['correo_electronico']
+                                , request.form['telefono'], request.form['direccion'],vector)    
+    
+    model.subir_foto(f_save,dni)
+    
     return jsonify(content)
 
 @user_blueprint.route('/user', methods=['DELETE'])

@@ -132,5 +132,7 @@ if __name__ == "__main__":
     #print(tm.get_tasks())
     #print(um.get_users())
     #print(um.get_id('patrick')[0].get("id_usuario"))
-    print(um.get_user(38)[0].get("foto"))
+    foto = um.get_photo_by_dni("75575456")[0].get("foto")
+    print(foto)
+    print(type(foto))
     #print(um.create_user('nick2', 'password2', 'nomb2','apellido2',20,'M','correo2','tel2','dir2'))

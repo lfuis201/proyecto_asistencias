@@ -52,10 +52,9 @@ def update_user():
     
     data = model.get_user(id_user)
     
-    foto_vieja = data[0].get("foto")
+ 
     dni = data[0].get("dni")
-    #remove(foto_vieja)
-    
+
     f = request.files['foto']
     filename = f.filename
     f.save("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos/" +dni+ filename)

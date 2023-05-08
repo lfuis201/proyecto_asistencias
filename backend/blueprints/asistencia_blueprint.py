@@ -28,11 +28,13 @@ def insert_asistencia():
     
     f = request.files['foto']
     filename = f.filename
+    
     f.save("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos_asistencia/" +request.form['dni']+ filename)
     
     f_save = ("/home/luisfelipe/Proyectos/construccion_Software/proyecto_final/photos_asistencia/" +request.form['dni']+ filename)
     
     fotouserpath=umodel.get_photo_by_dni(request.form['dni'])
+    
     img1 = open(f_save, 'rb')
     img2 = open(fotouserpath[0].get("foto"), 'rb')
     
@@ -43,11 +45,12 @@ def insert_asistencia():
     response = requests.post(url, files=files)
     json_response=json.loads(response.text)
     vector = json_response["distancia"]
-    str(vector)
     estado=False
-    if vector<0.6:
-        estado=True
     
+    
+    if float(vector)<0.6:
+        estado=True
+   
     content=model_asistencia.insert_asistencias(
         estado,
         request.form['fecha'],

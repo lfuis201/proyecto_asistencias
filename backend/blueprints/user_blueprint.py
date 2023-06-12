@@ -79,6 +79,12 @@ def update_user():
     
     return jsonify(content)
 
+@user_blueprint.route('/user_id', methods=['GET'])
+@cross_origin()
+def get_user_id():
+    dni = request.args.get('dni')
+    return jsonify(model.get_id(str(dni)))
+
 @user_blueprint.route('/user', methods=['DELETE'])
 @cross_origin()
 def delete_user():

@@ -37,17 +37,17 @@ class UserModel:
 
     def create_user(self, nickname, password, nombre, apellido, edad, genero,correo_electronico, telefono, direccion,dni,vector):    
         data = {
-            'nickname' : nickname,
-            'password' : password,
-            'nombre' : nombre,
-            'apellido' : apellido,
-            'edad' : edad,
-            'genero' : genero,
-            'correo_electronico' : correo_electronico,
-            'telefono' : telefono,
-            'direccion' : direccion,
-            'dni':dni,
-            'vector':vector
+            'nickname': nickname,
+            'password': password,
+            'nombre': nombre,
+            'apellido': apellido,
+            'edad': edad,
+            'genero': genero,
+            'correo_electronico': correo_electronico,
+            'telefono': telefono,
+            'direccion': direccion,
+            'dni': dni,
+            'vector': vector
 
         }
         

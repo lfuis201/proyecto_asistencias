@@ -50,3 +50,8 @@ def update_horario():
 @cross_origin()
 def delete_horario():
     return jsonify(model_horario.delete_horarios(int(request.json['id_horario'])))
+
+@horario_blueprint.route('/get_horarios_by_id', methods=['GET'])
+@cross_origin()
+def get_horarios_by_id():
+    return jsonify(model_horario.get_horarios_by_idalumno(int(request.json['id_alumno'])))

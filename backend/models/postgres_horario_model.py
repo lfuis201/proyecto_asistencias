@@ -1,4 +1,5 @@
 from backend.models.postgres_pool_connection import PostgresPool
+from backend.models.postgres_alumno_model import AlumnoModel
 
 class HorarioModel:
     def __init__(self):        
@@ -22,6 +23,28 @@ class HorarioModel:
             data.append(content)
             content = {}
         return data
+    
+    def get_horarios_by_idalumno(self, id_alumno):
+        params = {'id_alumno' : id_alumno}  
+        rv = self.mysql_pool.execute("SELECT * from horario where id_alumno = %(id_alumno)s;", params)  
+
+        data = []
+        contenido={}
+        for row in rv:
+            contenido={
+                'id_horario':row[0],
+                'num_horas':row[1],
+                'descripcion':row[2],
+                'hora_inicio':str(row[3]),
+                'hora_fin':str(row[4]),
+                'dia_semana':row[5],
+                'id_seccion':row[6],
+                'id_alumno':row[7],
+                'id_curso':row[8],
+            }
+            data.append(contenido)
+            contenido={}
+        return data 
     
     def get_horarios(self):
         query=self.mysql_pool.execute("SELECT * from horario")

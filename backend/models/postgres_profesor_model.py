@@ -42,7 +42,7 @@ class ProfesorModel:
         return data
     
     def get_profesores(self):
-        query=self.postgres_pool.execute("""select a.id_profesor,a.departamento,u.nombre,u.apellido from profesor a inner join usuario u on a.id_usuario=u.id_usuario""")
+        query=self.postgres_pool.execute("""select a.id_profesor,a.departamento,u.nombre,u.apellido,u.id_usuario from profesor a inner join usuario u on a.id_usuario=u.id_usuario""")
         data = list()
         contenido=dict()
         for row in query:
@@ -50,7 +50,8 @@ class ProfesorModel:
                 'id_profesor':row[0],
                 'departamento':row[1],
                 'nombre':row[2],
-                'apellido':row[3]
+                'apellido':row[3],
+                'id_usuario':row[4]
             }
             data.append(contenido)
             contenido={}

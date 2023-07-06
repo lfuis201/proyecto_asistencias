@@ -89,7 +89,7 @@ def update_profesor():
                                 , request.form['apellido'], request.form['edad']
                                 , request.form['genero'], request.form['correo_electronico']
                                 , request.form['telefono'], request.form['direccion'],vector
-                                , request.form['id_profesor'], request.form['departamento'],id_user)    
+                                , id_profesor, request.form['departamento'],id_user)    
     
     model.subir_foto(f_save,dni)
     

@@ -5,8 +5,9 @@ import json
 from flask_cors import CORS, cross_origin
 from backend.models.postgres_asistencia_model import AsistenciaModel
 from backend.models.mysql_user_model import UserModel
+from backend.models.postgres_alumno_model import AlumnoModel
 umodel = UserModel()
-
+model_alumno = AlumnoModel()
 model_asistencia = AsistenciaModel()
 asistencia_blueprint = Blueprint('asistencia_blueprint',__name__)
 
@@ -85,3 +86,11 @@ def update_asistencia():
 @cross_origin()
 def delete_asistencia():
     return jsonify(model_asistencia.delete_asistencia(int(request.json['id_asistencia'])))
+
+
+@asistencia_blueprint.route('/get_id_alumno_por_dni', methods=['POST'])
+@cross_origin()
+def get_id_alumno_por_dni():
+    dni = request.json['dni']
+    id_alumno = model_alumno.get_id_alumno_por_dni(dni)
+    return jsonify(id_alumno)

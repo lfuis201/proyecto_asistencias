@@ -38,15 +38,15 @@ class CursoModel:
 
         return data
 
-    def update_curso (self,id_curso,nombre_curso, descripcion):    
+    def update_curso (self,id_curso,nombre_curso, descripcion):
         data = {
             'id_curso' : id_curso,
             'nombre_curso' : nombre_curso,
             'descripcion' : descripcion
-        }  
-        query = """update curso set nombre_curso = %(nombre_curso)s, descripcion = %(descripcion)s,
-                    where id_curso = %(id_curso)s"""    
-        cursor = self.mysql_pool.execute(query, data, commit=True)   
+        }
+        query = """update curso set nombre_curso = %(nombre_curso)s, descripcion = %(descripcion)s
+                    where id_curso = %(id_curso)s"""
+        cursor = self.mysql_pool.execute(query, data, commit=True)
 
         result = {'result':1} 
         return result

@@ -1,9 +1,11 @@
 from backend.models.postgres_pool_connection import PostgresPool
 
+
 class AsistenciaModel:
     def __init__(self):        
         self.mysql_pool = PostgresPool()
         
+    
     def get_Asistencia(self, id_asistencia):  
         params = {'id_asistencia' : id_asistencia}  
         rv = self.mysql_pool.execute("SELECT * from asistencia where id_asistencia=%(id_asistencia)s", params)  
@@ -54,7 +56,7 @@ class AsistenciaModel:
          values(%(estado)s,%(fecha)s,%(id_horario)s,%(vector_comparacion)s,%(foto)s,%(dni)s);"""
         cursor = self.mysql_pool.execute(query,entrada,commit=True)
         salida = {
-            "id_horario":id_horario,
+            "estado":estado,
             "message":"Asistencia OK"
         }
 #        global llave_usuario
